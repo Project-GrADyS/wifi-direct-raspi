@@ -24,6 +24,7 @@ class Conf:
     '''
     Installs nmap package: nmap is needed to seach the connected device
     '''
+    '''
     def check_and_install_packages():
         """
         Checks if required packages are installed and installs them if needed.
@@ -35,6 +36,7 @@ class Conf:
             except subprocess.CalledProcessError:
                 subprocess.run(["sudo", "apt-get", "install", "-y", package])
                 print(f"Package '{package}' installed successfully.")
+    '''
     
     def disable_dhcpcd():
         with open("/etc/dhcpcd.conf", "a") as f:
