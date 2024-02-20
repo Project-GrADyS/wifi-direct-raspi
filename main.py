@@ -11,7 +11,7 @@ if __name__ == "__main__":
     Conf.configure_wlan0_p2p_go_address()
     Conf.install_dnsmasq()
     Conf.configure_dnsmasq()
-    Conf.enable_and_start_systemd_networkd()]
+    Conf.enable_and_start_systemd_networkd()
     Conf.reboot()
     discovered_devices = Discovery.discover_devices()
     print(discovered_devices)
