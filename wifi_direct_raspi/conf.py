@@ -85,7 +85,7 @@ class Conf:
     Installs external DHCP server dnsmasq
     """
     def install_dnsmasq():
-        subprocess.run(["sudo apt-get install -y dnsmasq"], check=True)
+        subprocess.run(["sudo", "apt", "install", "dnsmasq"])
     
     def configure_dnsmasq():
         with open("/etc/dnsmasq.conf", "a") as f:
@@ -97,11 +97,11 @@ class Conf:
             f.write("dhcp-option=3,192.168.50.1\n")
 
     def enable_and_start_systemd_networkd():
-        subprocess.run(["systemctl enable systemd-networkd.service"], check=True)
-        subprocess.run(["systemctl start systemd-networkd.service"], check=True)
+        subprocess.run(["systemctl", "enable", "systemd-networkd.service"], check=True)
+        subprocess.run(["systemctl", "start", "systemd-networkd.service"], check=True)
     
     """
     Reboots Raspberry Pi
     """
     def reboot():
-        subprocess.run(["sudo reboot"], check=True)
+        subprocess.run(["sudo", "reboot"], check=True)
