@@ -14,4 +14,4 @@ if __name__ == "__main__":
     #Conf.enable_and_start_systemd_networkd()
     #Conf.reboot()
     discovered_devices = Discovery.discover_devices()
-    #print(discovered_devices)
+    print(discovered_devices)

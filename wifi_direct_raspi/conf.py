@@ -7,36 +7,6 @@ class Conf:
     def __init__(self):
         print("oi")
     
-    '''
-    
-    def check_and_install_packages():
-        """
-        Checks if required packages are installed and installs them if needed.
-        """
-        required_packages = ["wpasupplicant", "wireless-tools", "iw"]
-        for package in required_packages:
-            try:
-                subprocess.run(["dpkg", "--status", package], check=True, capture_output=True)
-            except subprocess.CalledProcessError:
-                subprocess.run(["sudo", "apt-get", "install", "-y", package])
-                print(f"Package '{package}' installed successfully.")
-    '''
-    '''
-    Installs nmap package: nmap is needed to seach the connected device
-    '''
-    '''
-    def check_and_install_packages():
-        """
-        Checks if required packages are installed and installs them if needed.
-        """
-        required_packages = ["nmap"]
-        for package in required_packages:
-            try:
-                subprocess.run(["dpkg", "--status", package], check=True, capture_output=True)
-            except subprocess.CalledProcessError:
-                subprocess.run(["sudo", "apt-get", "install", "-y", package])
-                print(f"Package '{package}' installed successfully.")
-    '''
     """
     Disable processing P2P GO interfaces, by adding this line to the top
     of the file
