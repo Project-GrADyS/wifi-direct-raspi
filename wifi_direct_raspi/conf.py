@@ -1,12 +1,9 @@
 import subprocess
 
+"""
+Configuration files
+"""
 class Conf:
-    """
-    Configuration files
-    """
-    def __init__(self):
-        print("oi")
-    
     """
     Disable processing P2P GO interfaces, by adding this line to the top
     of the file
@@ -57,6 +54,10 @@ class Conf:
     def install_dnsmasq():
         subprocess.run(["sudo", "apt", "install", "dnsmasq"])
     
+    
+    """
+    Configures dnsmasq
+    """
     def configure_dnsmasq():
         with open("/etc/dnsmasq.conf", "a") as f:
             f.write("interface=p2p-wlan*\n")
