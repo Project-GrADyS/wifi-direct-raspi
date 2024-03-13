@@ -1,7 +1,7 @@
 # wifi-direct-raspi
 
-Library for Wi-Fi Direct on Raspberry Pi
+Python library for Wi-Fi Direct on Raspberry Pi
 
 - Discovery
 - Connection
-- 
+- Group Management
