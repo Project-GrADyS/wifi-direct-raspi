@@ -17,7 +17,7 @@ class Connection:
             stderr=subprocess.PIPE, 
             universal_newlines=True
         )
-        #time.sleep(10)
+        time.sleep(10)
         output, err = process.communicate()
         output = output.split()
         print(output)

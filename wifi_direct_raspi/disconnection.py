@@ -1,5 +1,5 @@
 import subprocess
-
+'''
 class Disconnection:
     
     def __init__(self):
@@ -24,3 +24,4 @@ class Disconnection:
             return True
         else:
             return err
+'''

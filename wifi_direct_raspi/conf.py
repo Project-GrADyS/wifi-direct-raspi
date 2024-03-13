@@ -1,7 +1,7 @@
 import subprocess
 
 """
-Configuration files
+Configuration file
 """
 class Conf:
     """
@@ -53,7 +53,6 @@ class Conf:
     """
     def install_dnsmasq():
         subprocess.run(["sudo", "apt", "install", "dnsmasq"])
-    
     
     """
     Configures dnsmasq

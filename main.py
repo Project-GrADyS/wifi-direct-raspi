@@ -2,6 +2,8 @@ from wifi_direct_raspi.discovery import Discovery
 from wifi_direct_raspi.connection import Connection
 from wifi_direct_raspi.conf import Conf
 import subprocess
+import threading
+import time
 #class Main:
     
 
