@@ -8,8 +8,8 @@ class Connection:
     """
     Connects to a Wi-Fi Direct device using its MAC address.
     """
-    def connect_to_device(mac_addresss):
-        command = ["wpa_cli", "p2p_connect", mac_addresss, "pbc"]
+    def connect_to_device(mac_address):
+        command = ["wpa_cli", "p2p_connect", mac_address, "pbc"]
         
         process = subprocess.Popen(
             command, 
