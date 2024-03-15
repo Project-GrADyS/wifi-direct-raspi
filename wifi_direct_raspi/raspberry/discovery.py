@@ -1,9 +1,10 @@
 import subprocess
 import time
+from typing import Literal
 
 class Discovery:
 
-    def __init__(self):
+    def __init__(self, mode: Literal["virtual_push_button", "keypad"]):
         pass
 
     """
@@ -13,7 +14,8 @@ class Discovery:
 
     p2p_find [timeout in seconds]
     """
-    def start(self, mode):
+    def start(self, mode) -> None:
+        self.found_devices = []
         commands = [
             ["wpa_cli", "set", "config_methods", mode],
             ["wpa_cli", "p2p_find", "5"]
@@ -32,7 +34,7 @@ class Discovery:
     """
     Scans for available Wi-Fi Direct devices and returns a list with their MAC addresses.
     """
-    def discover_devices(self):
+    def discover_devices():
         devices = []
 
         #["wpa_cli", "p2p_stop"],

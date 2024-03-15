@@ -1,6 +1,7 @@
 from wifi_direct_raspi.discovery import Discovery
 from wifi_direct_raspi.connection import Connection
 from wifi_direct_raspi.configuration import Configuration
+from wifi_direct_raspi.group_management import GroupManagement
 import subprocess
 import threading
 import time
@@ -17,12 +18,17 @@ if __name__ == "__main__":
     #Conf.enable_and_start_systemd_networkd()
     #Conf.reboot()
 
-
-    discovered_devices = Discovery.discover_devices()
+    #Discovery.start("virtual_push_button")
+    #discovered_devices = Discovery.discover_devices()
+    #print(discovered_devices)
     #resp = Connection.connect_to_device(discovered_devices[0])
-    print(discovered_devices)
-
+    
     #print(resp)
+
+    r = GroupManagement.group_status()
+
+    print(r)
+
     '''
     while True:
         command = ["wpa_cli", "-i", "wlan0", "SUBSCRIBE"]
