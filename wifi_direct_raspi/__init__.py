@@ -2,8 +2,9 @@
 
 import asyncio
 from typing import (List, Literal)
-from .discovery import Discovery
+from .backends.raspberry.methods.discovery import Discovery
 from .device import Device
+from .backends.raspberry.client import WDRaspiClient
 
 
 class WDScanner:
@@ -12,7 +13,7 @@ class WDScanner:
     """
 
     def __init__(self, mode: Literal["virtual_push_button", "keypad"] = "virtual_push_button") -> None:
-        pass
+        self._backend = WDRaspiClient
 
     async def start(self, mode: str) -> None:
         """Start scanning devices"""
@@ -22,9 +23,12 @@ class WDScanner:
         await Discovery.stop()
     
     @classmethod
-    async def discover(timeout=5):
-        await Discovery.discover_devices()
+    async def discover(cls, timeout=5):
+        async with cls() as scanner:
+            await asyncio.sleep(timeout)
+        return scanner.discovered_devices()
     
     @property
     def discovered_devices(self) -> List[Device]:
+        return self._backend.found_devices
 

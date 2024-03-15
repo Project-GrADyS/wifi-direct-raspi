@@ -1,6 +1,6 @@
 import asyncio
 import abc
-from typing import List
+from typing import (List, Type)
 from .device import Device
 
 class BaseScanner(abc.ABC):
@@ -26,3 +26,6 @@ class BaseScanner(abc.ABC):
     async def stop(self) -> None:
         """Start scanning for devices"""
         raise NotImplementedError
+
+def get_backend() -> Type[BaseScanner]:
+    return 
