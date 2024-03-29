@@ -1,6 +1,6 @@
 import abc
 from typing import Type
-from .backends.raspberry.client import WDRaspiClient
+from .raspberry.client import RaspiClient
 
 class BaseClient(abc.ABC):
 
@@ -25,4 +25,4 @@ class BaseClient(abc.ABC):
         raise NotImplementedError()
     
 def get_client() -> Type[BaseClient]:
-    return WDRaspiClient
+    return RaspiClient

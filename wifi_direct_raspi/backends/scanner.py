@@ -1,11 +1,17 @@
 import asyncio
 import abc
-from typing import (List, Type)
+from typing import (Any,List, Type)
 from .device import Device
+from .raspberry.scanner import RaspiScanner
 
 class BaseScanner(abc.ABC):
 
     found_devices: List[Device]
+
+    def __init__(self):
+        super(BaseScanner, self).__init__()
+
+        self.found_devices = []
 
     def create_or_update_device(self, mac_address: str) -> Device:
         for device in self.found_devices:
@@ -27,5 +33,5 @@ class BaseScanner(abc.ABC):
         """Stop scanning for devices"""
         raise NotImplementedError
 
-def get_backend() -> Type[BaseScanner]:
-    return 
+def get_scanner() -> Type[BaseScanner]:
+    return RaspiScanner

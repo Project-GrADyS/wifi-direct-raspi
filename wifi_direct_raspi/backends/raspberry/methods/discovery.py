@@ -51,7 +51,6 @@ class Discovery:
         if output != '':
             output_list = output.split()
             devices = output_list[3:]
-        print(devices)
         return devices
     
     async def run_periodically(interval, function):
@@ -61,7 +60,7 @@ class Discovery:
 
     
     def _get_device_info(self, mac_address):
-        command = ["wpa_cli", "p2p_peer", "mac_address"]
+        command = ["wpa_cli", "p2p_peer", mac_address]
         
         process = subprocess.Popen(
             command, 

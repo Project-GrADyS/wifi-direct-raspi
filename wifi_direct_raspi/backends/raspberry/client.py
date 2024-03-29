@@ -3,7 +3,7 @@ from .methods.connection import Connection
 
 logger = logging.getLogger(__name__)
 
-class WDRaspiClient:
+class RaspiClient:
     """
     Interface for connecting with a device
     """
