@@ -16,14 +16,14 @@ class WDScanner:
 
     async def start(self, mode: str) -> None:
         """Start scanning devices"""
-        await self._backend.start()
+        await self._backend.start(mode=mode)
     
     async def stop(self) -> None:
         """Stop scanning devices"""
         await self._backend.stop()
     
     @classmethod
-    async def discover(cls, timeout=5):
+    async def discover(cls, timeout: float = 5.0):
         async with cls() as scanner:
             await asyncio.sleep(timeout)
         return scanner.discovered_devices()
@@ -38,7 +38,7 @@ class WDClient:
     Interface for Wi-Fi Direct Client
     """
 
-    def __init__(self, backend: Optional[Type[BaseClient]] = None) -> None:
+    def __init__(self) -> None:
         self._backend = get_client()
 
     async def connect(self, mac_address) -> bool:

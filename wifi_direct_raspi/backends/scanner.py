@@ -20,7 +20,6 @@ class BaseScanner(abc.ABC):
             
         device = Device(mac_address=mac_address)
         self.found_devices.append(device)
-
         return device
 
     @abc.abstractmethod

@@ -12,12 +12,12 @@ class RaspiScanner(BaseScanner):
         super(BaseScanner, self).__init__()
         self.mode = mode
 
-    def start(self) -> None:
+    async def start(self) -> None:
         self.found_devices = []
 
         #event_loop = asyncio.Event()
 
-        Discovery.start()
+        await Discovery.start()
     
     async def _received_handler(self) -> None:
         #listens to discovered devices asyncio

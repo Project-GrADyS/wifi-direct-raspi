@@ -15,7 +15,7 @@ class Discovery:
 
     p2p_find [timeout in seconds]
     """
-    def start( mode) -> None:
+    def start(self, mode) -> None:
         commands = [
             ["wpa_cli", "set", "config_methods", mode],
             ["wpa_cli", "p2p_find"]
@@ -37,7 +37,7 @@ class Discovery:
     """
     Scans for available Wi-Fi Direct devices and returns a list with their MAC addresses.
     """
-    async def discover_devices():
+    async def discover_devices(self):
         devices = []
         command = ["wpa_cli", "p2p_peers"]
         
