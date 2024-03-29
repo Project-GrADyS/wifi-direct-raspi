@@ -24,7 +24,7 @@ class BaseScanner(abc.ABC):
     
     @abc.abstractmethod
     async def stop(self) -> None:
-        """Start scanning for devices"""
+        """Stop scanning for devices"""
         raise NotImplementedError
 
 def get_backend() -> Type[BaseScanner]:

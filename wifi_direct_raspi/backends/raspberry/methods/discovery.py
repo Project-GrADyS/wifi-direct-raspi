@@ -1,10 +1,11 @@
 import subprocess
 import time
 from typing import Literal
+import asyncio
 
 class Discovery:
 
-    def __init__(self, mode: Literal["virtual_push_button", "keypad"]):
+    def __init__(self, mode: Literal["virtual_push_button", "virtual_display"]):
         pass
 
     """
@@ -14,11 +15,10 @@ class Discovery:
 
     p2p_find [timeout in seconds]
     """
-    def start(self, mode) -> None:
-        self.found_devices = []
+    def start( mode) -> None:
         commands = [
             ["wpa_cli", "set", "config_methods", mode],
-            ["wpa_cli", "p2p_find", "5"]
+            ["wpa_cli", "p2p_find"]
         ]
 
         for command in commands:
@@ -29,33 +29,57 @@ class Discovery:
                 universal_newlines=True
             )
             output, err = process.communicate()
+        
+        if output == 'OK':
+            return True
 
 
     """
     Scans for available Wi-Fi Direct devices and returns a list with their MAC addresses.
     """
-    def discover_devices():
+    async def discover_devices():
         devices = []
-
-        #["wpa_cli", "p2p_stop"],
-        #["wpa_cli", "set", "config_methods", "virtual_push_button"],
-
-        commands = [
-            ["wpa_cli", "p2p_peers"],
-        ]
-
-        #for command in commands:
+        command = ["wpa_cli", "p2p_peers"]
+        
         process = subprocess.Popen(
-            commands[0], 
+            command, 
             stdout=subprocess.PIPE, 
             stderr=subprocess.PIPE, 
             universal_newlines=True
         )
         output, err = process.communicate()
-        output_list = output.split()
-        devices = output_list[3:]
-
+        if output != '':
+            output_list = output.split()
+            devices = output_list[3:]
+        print(devices)
         return devices
+    
+    async def run_periodically(interval, function):
+        while True:
+            await asyncio.sleep(interval)
+            await function()
+
+    
+    def _get_device_info(self, mac_address):
+        command = ["wpa_cli", "p2p_peer", "mac_address"]
+        
+        process = subprocess.Popen(
+            command, 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            universal_newlines=True
+        )
+        output, err = process.communicate()
+        print(output)
+        '''
+        if output != '':
+            output_list = output.split()
+            devices = output_list[3:]
+        return devices
+        '''
+    
+    def discover_specific_device(mac_address):
+        pass
     
     """
     Make device unavailable

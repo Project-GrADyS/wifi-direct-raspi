@@ -22,7 +22,7 @@ class GroupManagement:
         if output == 'Ok':
             return True
         else:
-            return err
+            return False, err
 
     def set_autonomous_group():
         command = ["wpa_cli", "p2p_group_add", "persistent"]
@@ -40,7 +40,7 @@ class GroupManagement:
         if output == 'Ok':
             return True
         else:
-            return err
+            return False, err
     
     def invite_to_group(group_id):
         command = ["wpa_cli", "p2p_invite", group_id]
@@ -58,7 +58,7 @@ class GroupManagement:
         if output == 'Ok':
             return True
         else:
-            return err
+            return False, err
 
     def forget_group(group_id):
         command = ["wpa_cli", "p2p_group_remove", group_id]
@@ -76,4 +76,4 @@ class GroupManagement:
         if output == 'Ok':
             return True
         else:
-            return err
+            return False, err

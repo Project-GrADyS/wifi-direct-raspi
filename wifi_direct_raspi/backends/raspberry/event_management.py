@@ -2,11 +2,14 @@ import asyncio
 from typing import (Any, MutapleMapping)
 from weakref import WeakKeyDictionary
 
-# This class will get commands from the terminal about the ongoing wi-fi direct related events
+# This class will get commands from the terminal about the ongoing wi-fi direct related events, like disconnection from a peer
 
 class EventManagement:
     def __init__(self):
         self._bus_lock = asyncio.Lock()
+
+    def disconnection_callback():
+        pass
 
     
 

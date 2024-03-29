@@ -4,8 +4,9 @@ from .methods.connection import Connection
 logger = logging.getLogger(__name__)
 
 class WDRaspiClient:
-    
-
+    """
+    Interface for connecting with a device
+    """
     async def connect(self, mac_address: str, group_owner: bool = False) -> bool:
         logger.debug(f"Connecting to device {self.mac_address}")
 

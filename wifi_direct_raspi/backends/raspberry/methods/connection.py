@@ -24,7 +24,7 @@ class Connection:
         if output == 'Ok':
             return True
         else:
-            return err
+            return False, err
         
 
         

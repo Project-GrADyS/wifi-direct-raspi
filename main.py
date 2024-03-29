@@ -1,10 +1,11 @@
-from wifi_direct_raspi.raspberry.methods.discovery import Discovery
-from wifi_direct_raspi.raspberry.methods.connection import Connection
+from .wifi_direct_raspi.backends.raspberry.methods.discovery import Discovery
+from .wifi_direct_raspi.backends.raspberry.methods.connection import Connection
 from wifi_direct_raspi.configuration import Configuration
-from wifi_direct_raspi.raspberry.methods.group_management import GroupManagement
+from .wifi_direct_raspi.backends.raspberry.methods.group_management import GroupManagement
 import subprocess
 import threading
 import time
+import asyncio
 #class Main:
     
 
@@ -18,16 +19,23 @@ if __name__ == "__main__":
     #Conf.enable_and_start_systemd_networkd()
     #Conf.reboot()
 
-    #Discovery.start("virtual_push_button")
+    Discovery.start("virtual_push_button")
+
+    async def main():
+        # Run your_function every 5 seconds
+        await Discovery.run_periodically(5, Discovery.discover_devices)
+    
+    asyncio.run(main())
+    
     #discovered_devices = Discovery.discover_devices()
     #print(discovered_devices)
     #resp = Connection.connect_to_device(discovered_devices[0])
     
     #print(resp)
 
-    r = GroupManagement.group_status()
+    #r = GroupManagement.group_status()
 
-    print(r)
+    #print(r)
 
     '''
     while True:

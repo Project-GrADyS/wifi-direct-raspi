@@ -1,5 +1,5 @@
 import subprocess
-'''
+
 class Disconnection:
     
     def __init__(self):
@@ -8,7 +8,7 @@ class Disconnection:
     """
     Disconnects the device from the P2P Group using the group's address.
     """
-    def connect_to_device(group_addresss):
+    def disconnect(group_addresss):
         command = ["wpa_cli", "p2p_group_remove", group_addresss]
         
         process = subprocess.Popen(
@@ -24,4 +24,3 @@ class Disconnection:
             return True
         else:
             return err
-'''

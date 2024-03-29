@@ -1,6 +1,10 @@
-from ..scanner import BaseScanner
+from ...scanner import BaseScanner
+from .methods.discovery import Discovery
 from typing import Literal
 import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
 
 class RaspiScanner(BaseScanner):
 
@@ -12,6 +16,8 @@ class RaspiScanner(BaseScanner):
         self.found_devices = []
 
         event_loop = asyncio.Event()
+
+        await Discovery.start()
 
     def _handle_discovered_devices(self, mac_address: str) -> None:
 

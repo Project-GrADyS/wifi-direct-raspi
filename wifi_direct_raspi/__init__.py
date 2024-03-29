@@ -1,5 +1,3 @@
-"""Top-level package"""
-
 import asyncio
 from typing import (List, Literal)
 from .backends.raspberry.methods.discovery import Discovery
