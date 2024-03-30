@@ -15,7 +15,7 @@ class Discovery:
 
     p2p_find [timeout in seconds]
     """
-    def start(self, mode) -> None:
+    async def start(self, mode) -> None:
         commands = [
             ["wpa_cli", "set", "config_methods", mode],
             ["wpa_cli", "p2p_find"]
@@ -83,7 +83,7 @@ class Discovery:
     """
     Make device unavailable
     """
-    def stop(self):
+    async def stop(self):
         commands = [
             ["wpa_cli", "p2p_stop"],
         ]

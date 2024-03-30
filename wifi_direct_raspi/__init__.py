@@ -4,6 +4,7 @@ from .backends.raspberry.methods.discovery import Discovery
 from .backends.device import Device
 from wifi_direct_raspi.backends.client import BaseClient, get_client
 from wifi_direct_raspi.backends.scanner import BaseScanner, get_scanner
+from types import TracebackType
 
 
 class WDScanner:
@@ -12,7 +13,15 @@ class WDScanner:
     """
 
     def __init__(self, mode: Literal["virtual_push_button", "keypad"] = "virtual_push_button") -> None:
-        self._backend = get_scanner()
+        PlatformScanner = (get_scanner())
+        self._backend = PlatformScanner("virtual_push_button")
+    
+    async def __aenter__(self):
+        await self._backend.start("virtual_push_button")
+        return self
+    
+    async def __aexit__(self, exc_type: Type[BaseException], exc_val: BaseException, exc_tb: TracebackType) -> None:
+        await self._backend.stop()
 
     async def start(self, mode: str) -> None:
         """Start scanning devices"""
@@ -26,7 +35,7 @@ class WDScanner:
     async def discover(cls, timeout: float = 5.0):
         async with cls() as scanner:
             await asyncio.sleep(timeout)
-        return scanner.discovered_devices()
+        return scanner.discovered_devices
     
     @property
     def discovered_devices(self) -> List[Device]:

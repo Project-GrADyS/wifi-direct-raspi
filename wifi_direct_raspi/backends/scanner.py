@@ -2,7 +2,6 @@ import asyncio
 import abc
 from typing import (Any,List, Type)
 from .device import Device
-from .raspberry.scanner import RaspiScanner
 
 class BaseScanner(abc.ABC):
 
@@ -33,4 +32,5 @@ class BaseScanner(abc.ABC):
         raise NotImplementedError
 
 def get_scanner() -> Type[BaseScanner]:
+    from wifi_direct_raspi.backends.raspberry.scanner import RaspiScanner
     return RaspiScanner
