@@ -15,22 +15,27 @@ class RaspiScanner(BaseScanner):
 
     async def start(self) -> None:
         self.found_devices = []
-        #event_loop = asyncio.Event()
-        await self.discovery_instance.start()
+        event_loop = asyncio.get_event_loop()
+        self._stopped_loop = asyncio.Event()
+        self.discovery_instance.start()
+        await self.discovery_instance.run_periodically(5, Discovery.discover_devices)
     
+    async def d(self):
+        await self.discovery_instance.run_periodically(5, Discovery.discover_devices)
+    '''
     async def _received_handler(self) -> None:
         #listens to discovered devices asyncio
-        discovered_devices = await Discovery.run_periodically(5, Discovery.discover_devices)
+        discovered_devices = await self.discovery_instance.run_periodically(5, self.discovery_instance.discover_devices)
         #print(discovered_devices)
         if discovered_devices != []:
             for device in discovered_devices:
                 self.create_or_update_device(mac_address=device)
-    
+    '''
     async def stop(self):
         await self.discovery_instance.stop()
 
     async def discover(self):
-        discovered_devices = await Discovery.run_periodically(5, Discovery.discover_devices)
+        discovered_devices = await self.discovery_instance.run_periodically(5, Discovery.discover_devices)
         #print(discovered_devices)
         if discovered_devices != []:
             for device in discovered_devices:

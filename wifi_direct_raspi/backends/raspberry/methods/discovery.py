@@ -8,7 +8,7 @@ class Discovery:
     def __init__(self, mode: Literal["virtual_push_button", "virtual_display", "keypad"]):
         self.mode = mode
 
-    async def start(self) -> None:
+    def start(self) -> None:
         """
         Makes device available
 
@@ -27,13 +27,13 @@ class Discovery:
                 universal_newlines=True
             )
             output, err = process.communicate()
-        
+        print(output)
         if output == 'OK':
             return True
         else:
             return False, err
 
-    async def discover_devices(self):
+    async def discover_devices():
         """
         Scans for available Wi-Fi Direct devices and returns a list with their MAC addresses.
         """
@@ -47,11 +47,13 @@ class Discovery:
             universal_newlines=True
         )
         output, err = process.communicate()
+        #print(output)
         if output != '':
             output_list = output.split()
             devices = output_list[3:]
         return devices
     
+    @staticmethod
     async def run_periodically(interval, function):
         while True:
             await asyncio.sleep(interval)

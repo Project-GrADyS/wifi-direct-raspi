@@ -17,7 +17,7 @@ class WDScanner:
         self._backend = PlatformScanner("virtual_push_button")
     
     async def __aenter__(self):
-        await self._backend.start("virtual_push_button")
+        await self._backend.start()
         return self
     
     async def __aexit__(self, exc_type: Type[BaseException], exc_val: BaseException, exc_tb: TracebackType) -> None:
@@ -25,23 +25,17 @@ class WDScanner:
 
     async def start(self, mode: str) -> None:
         """Start scanning devices"""
-        await self._backend.start(mode=mode)
+        await self._backend.start()
     
     async def stop(self) -> None:
         """Stop scanning devices"""
         await self._backend.stop()
 
-    async def discover(self) -> List[Device]:
-        await self._backend.discover()
-        return self.discovered_devices
-
-    ''' 
     @classmethod
     async def discover(cls, timeout: float = 5.0):
         async with cls() as scanner:
             await asyncio.sleep(timeout)
         return scanner.discovered_devices
-    '''
     
     @property
     def discovered_devices(self) -> List[Device]:
