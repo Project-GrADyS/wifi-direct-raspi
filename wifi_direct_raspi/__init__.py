@@ -1,11 +1,12 @@
 import asyncio
-from typing import (List, Literal, Optional, Type)
+from typing import (List, Literal, Optional, Set, Type)
 from .backends.raspberry.methods.discovery import Discovery
 from .backends.device import Device
 from wifi_direct_raspi.backends.client import BaseClient, get_client
 from wifi_direct_raspi.backends.scanner import BaseScanner, get_scanner
 from types import TracebackType
 
+_background_tasks: Set[asyncio.Task] = set()
 
 class WDScanner:
     """

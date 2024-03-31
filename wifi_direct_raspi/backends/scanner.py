@@ -12,12 +12,14 @@ class BaseScanner(abc.ABC):
         self.found_devices = []
 
     def create_or_update_device(self, mac_address: str) -> Device:
-        for device in self.found_devices:
-            if device.mac_address == mac_address:
-                return device
-            
+        if self.found_devices != []:
+            for device in self.found_devices:
+                if device.mac_address == mac_address:
+                    return device
+        print(mac_address)
         device = Device(mac_address=mac_address)
         self.found_devices.append(device)
+        print(self.found_devices)
         return device
 
     @abc.abstractmethod

@@ -33,7 +33,7 @@ class Discovery:
         else:
             return False, err
 
-    async def discover_devices():
+    async def discover_devices(self):
         """
         Scans for available Wi-Fi Direct devices and returns a list with their MAC addresses.
         """
@@ -47,7 +47,7 @@ class Discovery:
             universal_newlines=True
         )
         output, err = process.communicate()
-        #print(output)
+        #print("oi")
         if output != '':
             output_list = output.split()
             devices = output_list[3:]
