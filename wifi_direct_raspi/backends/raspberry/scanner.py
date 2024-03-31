@@ -8,16 +8,15 @@ logger = logging.getLogger(__name__)
 
 class RaspiScanner(BaseScanner):
 
-    def __init__(self, mode: Literal["virtual_push_button", "keypad"]):
+    def __init__(self, mode: Literal["virtual_push_button", "virtual_display", "keypad"]):
         super(BaseScanner, self).__init__()
         self.mode = mode
+        self.discovery_instance = Discovery(self.mode)
 
-    async def start(self, mode) -> None:
+    async def start(self) -> None:
         self.found_devices = []
-
         #event_loop = asyncio.Event()
-        d = Discovery(mode)
-        await d.start(mode)
+        await self.discovery_instance.start()
     
     async def _received_handler(self) -> None:
         #listens to discovered devices asyncio
@@ -28,7 +27,14 @@ class RaspiScanner(BaseScanner):
                 self.create_or_update_device(mac_address=device)
     
     async def stop(self):
-        pass
+        await self.discovery_instance.stop()
+
+    async def discover(self):
+        discovered_devices = await Discovery.run_periodically(5, Discovery.discover_devices)
+        #print(discovered_devices)
+        if discovered_devices != []:
+            for device in discovered_devices:
+                self.create_or_update_device(mac_address=device)
     
     '''
     def _handle_discovered_devices(self, mac_address: str) -> None:

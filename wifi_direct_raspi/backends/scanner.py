@@ -9,7 +9,6 @@ class BaseScanner(abc.ABC):
 
     def __init__(self):
         super(BaseScanner, self).__init__()
-
         self.found_devices = []
 
     def create_or_update_device(self, mac_address: str) -> Device:
@@ -29,6 +28,10 @@ class BaseScanner(abc.ABC):
     @abc.abstractmethod
     async def stop(self) -> None:
         """Stop scanning for devices"""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    async def discover(self) -> None:
         raise NotImplementedError
 
 def get_scanner() -> Type[BaseScanner]:

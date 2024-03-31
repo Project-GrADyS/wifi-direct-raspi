@@ -30,12 +30,18 @@ class WDScanner:
     async def stop(self) -> None:
         """Stop scanning devices"""
         await self._backend.stop()
-    
+
+    async def discover(self) -> List[Device]:
+        await self._backend.discover()
+        return self.discovered_devices
+
+    ''' 
     @classmethod
     async def discover(cls, timeout: float = 5.0):
         async with cls() as scanner:
             await asyncio.sleep(timeout)
         return scanner.discovered_devices
+    '''
     
     @property
     def discovered_devices(self) -> List[Device]:

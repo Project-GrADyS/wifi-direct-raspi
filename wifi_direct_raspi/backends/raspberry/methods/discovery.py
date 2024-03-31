@@ -5,19 +5,17 @@ import asyncio
 
 class Discovery:
 
-    def __init__(self, mode: Literal["virtual_push_button", "virtual_display"]):
-        pass
+    def __init__(self, mode: Literal["virtual_push_button", "virtual_display", "keypad"]):
+        self.mode = mode
 
-    """
-    Make device available
+    async def start(self) -> None:
+        """
+        Makes device available
 
-    mode -> virtual_push_button or keypad
-
-    p2p_find [timeout in seconds]
-    """
-    async def start(self, mode) -> None:
+        Sets the connection mode
+        """
         commands = [
-            ["wpa_cli", "set", "config_methods", mode],
+            ["wpa_cli", "set", "config_methods", self.mode],
             ["wpa_cli", "p2p_find"]
         ]
 
@@ -32,12 +30,13 @@ class Discovery:
         
         if output == 'OK':
             return True
+        else:
+            return False, err
 
-
-    """
-    Scans for available Wi-Fi Direct devices and returns a list with their MAC addresses.
-    """
     async def discover_devices(self):
+        """
+        Scans for available Wi-Fi Direct devices and returns a list with their MAC addresses.
+        """
         devices = []
         command = ["wpa_cli", "p2p_peers"]
         
@@ -58,7 +57,6 @@ class Discovery:
             await asyncio.sleep(interval)
             await function()
 
-    
     def _get_device_info(self, mac_address):
         command = ["wpa_cli", "p2p_peer", mac_address]
         
