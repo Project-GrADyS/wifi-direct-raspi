@@ -49,6 +49,7 @@ class RaspiScanner(BaseScanner):
                 self.create_or_update_device(mac_address=device)
     '''
     async def stop(self):
+        self._task.cancel()
         await self.discovery_instance.stop()
 
     async def discover(self):

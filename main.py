@@ -1,7 +1,7 @@
-from wifi_direct_raspi.backends.raspberry.methods.discovery import Discovery
-from wifi_direct_raspi.backends.raspberry.methods.connection import Connection
-from wifi_direct_raspi.configuration import Configuration
-from wifi_direct_raspi.backends.raspberry.methods.group_management import GroupManagement
+#from wifi_direct_raspi.backends.raspberry.methods.discovery import Discovery
+#from wifi_direct_raspi.backends.raspberry.methods.connection import Connection
+#from wifi_direct_raspi.configuration import Configuration
+#from wifi_direct_raspi.backends.raspberry.methods.group_management import GroupManagement
 import subprocess
 import threading
 import time
@@ -13,6 +13,7 @@ from wifi_direct_raspi import WDScanner
 if __name__ == "__main__":
     async def main():
         devices = await WDScanner("virtual_push_button").discover()
+        
         print(devices)
     
     asyncio.run(main())

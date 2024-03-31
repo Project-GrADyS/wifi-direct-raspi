@@ -13,9 +13,10 @@ class WDScanner:
     Interface for Wi-Fi Direct Scanner
     """
 
-    def __init__(self, mode: Literal["virtual_push_button", "keypad"] = "virtual_push_button") -> None:
+    def __init__(self, mode: Literal["virtual_push_button", "virtual_display", "keypad"] = "virtual_push_button") -> None:
         PlatformScanner = (get_scanner())
-        self._backend = PlatformScanner("virtual_push_button")
+        self._backend = PlatformScanner(mode=mode)
+        self._task = None
     
     async def __aenter__(self):
         await self._backend.start()
@@ -33,13 +34,24 @@ class WDScanner:
         await self._backend.stop()
 
     @classmethod
-    async def discover(cls, timeout: float = 5.0):
-        async with cls() as scanner:
-            await asyncio.sleep(timeout)
-        return scanner.discovered_devices
+    async def discover(self, timeout= 5, mode="virtual_push_button"):
+        print("entrei")
+        #async with cls(mode) as scanner:
+            #print("oi")
+            #await asyncio.sleep(timeout)
+        self._task = asyncio.create_task(self._dis())
+        await self._task
+        return self.discovered_devices
+    
+    async def _dis(self):
+        while True:
+            await asyncio.sleep(5)
+            return self._backend.found_devices
+
     
     @property
     def discovered_devices(self) -> List[Device]:
+        print("oi2")
         return self._backend.found_devices
     
 
