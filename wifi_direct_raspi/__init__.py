@@ -22,6 +22,10 @@ class WDScanner:
         await self._backend.start()
         return self
     
+    async def __anext__(self):
+        await asyncio.sleep(1)
+        self._backend.discover()
+    
     async def __aexit__(self, exc_type: Type[BaseException], exc_val: BaseException, exc_tb: TracebackType) -> None:
         await self._backend.stop()
 
