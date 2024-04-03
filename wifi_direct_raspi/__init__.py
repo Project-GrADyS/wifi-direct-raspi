@@ -41,7 +41,7 @@ class WDScanner:
     
     @property
     def discovered_devices(self) -> List[Device]:
-        return [d for d, _ in self._backend.found_devices.values()]
+        return self._backend.found_devices
     
 
 class WDClient:
