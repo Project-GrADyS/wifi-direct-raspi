@@ -27,7 +27,7 @@ class Discovery:
                 universal_newlines=True
             )
             output, err = process.communicate()
-        print(output)
+
         if output == 'OK':
             return True
         else:
@@ -47,7 +47,7 @@ class Discovery:
             universal_newlines=True
         )
         output, err = process.communicate()
-        #print("oi")
+
         if output != '':
             output_list = output.split()
             devices = output_list[3:]

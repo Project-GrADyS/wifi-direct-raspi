@@ -1,3 +1,4 @@
+from __future__ import annotations
 import asyncio
 from typing import (List, Literal, Optional, Set, Type)
 from .backends.raspberry.methods.discovery import Discovery
@@ -22,10 +23,6 @@ class WDScanner:
         await self._backend.start()
         return self
     
-    async def __anext__(self):
-        await asyncio.sleep(1)
-        self._backend.discover()
-    
     async def __aexit__(self, exc_type: Type[BaseException], exc_val: BaseException, exc_tb: TracebackType) -> None:
         await self._backend.stop()
 
@@ -38,20 +35,16 @@ class WDScanner:
         await self._backend.stop()
 
     @classmethod
-    async def discover(self, timeout= 5, mode="virtual_push_button"):
+    async def discover(cls, timeout= 5, mode="virtual_push_button"):
         print("entrei")
-        #async with cls(mode) as scanner:
-            #print("oi")
-            #await asyncio.sleep(timeout)
-        self._task = asyncio.create_task(self._dis())
-        await self._task
-        return self.discovered_devices
+        async with cls(mode) as scanner:
+            await asyncio.sleep(timeout)
+        return scanner.discovered_devices
     
     async def _dis(self):
         while True:
             await asyncio.sleep(5)
             return self._backend.found_devices
-
     
     @property
     def discovered_devices(self) -> List[Device]:

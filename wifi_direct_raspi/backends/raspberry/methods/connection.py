@@ -20,7 +20,7 @@ class Connection:
         time.sleep(10)
         output, err = process.communicate()
         output = output.split()
-        print(output)
+        #print(output)
         if output == 'Ok':
             return True
         else:

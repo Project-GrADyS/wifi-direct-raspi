@@ -31,10 +31,6 @@ class BaseScanner(abc.ABC):
         """Stop scanning for devices"""
         raise NotImplementedError
 
-    @abc.abstractmethod
-    async def discover(self) -> None:
-        raise NotImplementedError
-
 def get_scanner() -> Type[BaseScanner]:
     from wifi_direct_raspi.backends.raspberry.scanner import RaspiScanner
     return RaspiScanner
