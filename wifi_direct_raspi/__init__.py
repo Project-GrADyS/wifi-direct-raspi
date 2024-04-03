@@ -1,10 +1,9 @@
 from __future__ import annotations
 import asyncio
-from typing import (List, Literal, Optional, Set, Type)
-from .backends.raspberry.methods.discovery import Discovery
+from typing import (List, Literal, Set, Type)
 from .backends.device import Device
-from wifi_direct_raspi.backends.client import BaseClient, get_client
-from wifi_direct_raspi.backends.scanner import BaseScanner, get_scanner
+from wifi_direct_raspi.backends.client import get_client
+from wifi_direct_raspi.backends.scanner import get_scanner
 from types import TracebackType
 
 _background_tasks: Set[asyncio.Task] = set()
@@ -19,7 +18,7 @@ class WDScanner:
         self._backend = PlatformScanner(mode=mode)
         self._task = None
     
-    async def __aenter__(self):
+    async def __aenter__(self) -> WDScanner:
         await self._backend.start()
         return self
     
@@ -36,20 +35,13 @@ class WDScanner:
 
     @classmethod
     async def discover(cls, timeout= 5, mode="virtual_push_button"):
-        print("entrei")
         async with cls(mode) as scanner:
             await asyncio.sleep(timeout)
         return scanner.discovered_devices
     
-    async def _dis(self):
-        while True:
-            await asyncio.sleep(5)
-            return self._backend.found_devices
-    
     @property
     def discovered_devices(self) -> List[Device]:
-        print("oi2")
-        return self._backend.found_devices
+        return [d for d, _ in self._backend.found_devices.values()]
     
 
 class WDClient:
@@ -58,7 +50,8 @@ class WDClient:
     """
 
     def __init__(self) -> None:
-        self._backend = get_client()
+        PlatformClient = (get_client())
+        self._backend = PlatformClient()
 
     async def connect(self, mac_address) -> bool:
         """Connect to a device"""
@@ -66,6 +59,20 @@ class WDClient:
     
     async def disconnect(self) -> bool:
         return await self._backend.disconnect()
+    
+    @property
+    def mac_address(self) -> str:
+        return self._backend.mac_address
+    
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}, {self.mac_address}"
+    
+    async def __aenter__(self) -> WDClient:
+        await self.connect()
+        return self
+
+    async def __aexit__(self, exc_type: Type[BaseException], exc_val: BaseException, exc_tb: TracebackType) -> None:
+        await self.disconnect()
     
     @property
     def is_connected(self) -> bool:

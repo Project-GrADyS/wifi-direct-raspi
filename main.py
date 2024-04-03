@@ -14,7 +14,10 @@ if __name__ == "__main__":
     async def main():
         devices = await WDScanner("virtual_push_button").discover()
         
-        print(devices)
+        for device, d in devices.values():
+            print("-------------------")
+            print(device)
+            print(d)
     
     asyncio.run(main())
 
