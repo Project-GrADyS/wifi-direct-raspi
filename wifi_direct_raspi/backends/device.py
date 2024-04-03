@@ -2,6 +2,8 @@
 
 class Device:
 
+    __slots__ = ("mac_address", "name")
+
     def __init__(self, mac_address: str, name: str):
         self.mac_address = mac_address
         self.name = name
