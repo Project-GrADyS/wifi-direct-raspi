@@ -15,7 +15,7 @@ class WDScanner:
 
     def __init__(self, mode: Literal["virtual_push_button", "virtual_display", "keypad"] = "virtual_push_button") -> None:
         PlatformScanner = (get_scanner())
-        self._backend = PlatformScanner(mode=mode)
+        self._backend = PlatformScanner(mode)
         self._task = None
     
     async def __aenter__(self) -> WDScanner:
@@ -49,9 +49,9 @@ class WDClient:
     Interface for Wi-Fi Direct Client
     """
 
-    def __init__(self) -> None:
+    def __init__(self, device: Device) -> None:
         PlatformClient = (get_client())
-        self._backend = PlatformClient()
+        self._backend = PlatformClient(device)
 
     async def connect(self, mac_address) -> bool:
         """Connect to a device"""
@@ -63,6 +63,10 @@ class WDClient:
     @property
     def mac_address(self) -> str:
         return self._backend.mac_address
+    
+    @property
+    def name(self) -> str:
+        return self._backend.name
     
     def __str__(self) -> str:
         return f"{self.__class__.__name__}, {self.mac_address}"
