@@ -9,9 +9,8 @@ class InstallConfig:
 
 setup (
     name='wifi_direct_raspi',
-    version='0.1',
+    version='0.0.1',
     description = "Wi-Fi Direct Library for Raspberry Pi",
-    readme = "README.md",
     author="Tatiana Reimer", 
     author_email="tatireimer99@gmail.com",
     url='https://www.python.org/sigs/distutils-sig/',

@@ -49,13 +49,13 @@ class WDClient:
     Interface for Wi-Fi Direct Client
     """
 
-    def __init__(self, device: Device) -> None:
+    def __init__(self, device: Device, group_mode: Literal["standard", "autonomous", "persistent"]) -> None:
         PlatformClient = (get_client())
-        self._backend = PlatformClient(device)
+        self._backend = PlatformClient(device, group_mode)
 
-    async def connect(self, mac_address) -> bool:
+    async def connect(self) -> bool:
         """Connect to a device"""
-        return await self._backend.connect(mac_address)
+        return await self._backend.connect()
     
     async def disconnect(self) -> bool:
         return await self._backend.disconnect()
