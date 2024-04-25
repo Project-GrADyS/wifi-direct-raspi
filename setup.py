@@ -4,7 +4,8 @@ import subprocess
 
 
 def run():
-    install.run()
+    #install_process = install()
+    #install_process.run()
     subprocess.run(['sudo', 'python', 'run_conf.py'])
 
 setup (
