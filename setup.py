@@ -2,10 +2,10 @@ from setuptools import setup
 from setuptools.command.install import install
 import subprocess
 
-class InstallConfig:
-    def run(self):
-        install.run(self)
-        subprocess.run(['sudo', 'python', 'run_conf.py'])
+
+def run():
+    install.run()
+    subprocess.run(['sudo', 'python', 'run_conf.py'])
 
 setup (
     name='wifi_direct_raspi',
@@ -15,6 +15,6 @@ setup (
     author_email="tatireimer99@gmail.com",
     url='https://www.python.org/sigs/distutils-sig/',
     cmdclass={
-        'install': InstallConfig,
+        'install': run(),
     },
 )
