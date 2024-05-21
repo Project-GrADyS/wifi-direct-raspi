@@ -1,5 +1,5 @@
 from wifi_direct_raspi.configuration import Configuration
-from wifi_direct_raspi.backends.raspberry.dataclasses.config import Config
+#from wifi_direct_raspi.backends.raspberry.dataclasses.config import Config
 import subprocess
 
 def get_mac_address():
