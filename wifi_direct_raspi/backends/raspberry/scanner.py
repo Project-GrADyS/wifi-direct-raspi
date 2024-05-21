@@ -31,7 +31,8 @@ class RaspiScanner(BaseScanner):
             discovered_devices = await self.discovery_instance.discover_devices()
             if discovered_devices != []:
                 for device in discovered_devices:
-                    self.create_or_update_device(mac_address=device, name="oi")
+                    device_info = await self.discovery_instance.get_device_info(device)
+                    self.create_or_update_device(mac_address=device, name=device_info["device_name"])
     
     async def stop(self):
         self._stop = True

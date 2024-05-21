@@ -59,7 +59,7 @@ class Discovery:
             await asyncio.sleep(interval)
             await function()
 
-    def _get_device_info(self, mac_address):
+    async def get_device_info(self, mac_address):
         command = ["wpa_cli", "p2p_peer", mac_address]
         
         process = subprocess.Popen(
@@ -69,7 +69,14 @@ class Discovery:
             universal_newlines=True
         )
         output, err = process.communicate()
-        print(output)
+        output_list = output.splitlines()
+        output_dict = {}
+        for line in output_list:
+            parts = line.strip().split("=")
+            if len(parts) == 2:
+                key, value = parts
+                output_dict[key] = value
+        return output_dict
         '''
         if output != '':
             output_list = output.split()

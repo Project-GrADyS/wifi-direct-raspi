@@ -17,6 +17,7 @@ if __name__ == "__main__":
         for device in devices:
             print("-------------------")
             print(device.mac_address)
+            print(device.name)
     
     asyncio.run(main())
 
